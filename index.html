@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Feliz Cumpleaños Mamá</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+            color: #fff;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        p {
+            font-size: 1.4em;
+        }
+
+        button {
+            background: #fff;
+            color: #ff6f91;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #ffe0e9;
+        }
+
+        .mensaje {
+            margin-top: 20px;
+            font-size: 1.4em;
+        }
+
+        .mensaje-sorpresa {
+            display: none;
+            margin-top: 30px;
+            font-size: 1.3em;
+        }
+
+        /* MINI JUEGO */
+        .juego {
+            margin-top: 50px;
+        }
+
+        #areaJuego {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 2px dashed white;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .corazon {
+            position: absolute;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎉 ¡Feliz Cumpleaños Mamá! 🎉</h1>
+        <p>Gracias por todo lo que haces por mí 💖</p>
+
+        <button onclick="mostrarSorpresa()">Haz clic aquí 🎁</button>
+
+        <div class="mensaje-sorpresa" id="sorpresa">
+            <p>
+                Te amo muchísimo mamá 💕<br>
+                Eres la mejor del mundo 🌎<br>
+                ¡Que tengas un día increíble! 🎂✨
+            </p>
+        </div>
+
+        <button onclick="mostrarMensaje()">Otro mensaje lindo 💌</button>
+        <div class="mensaje" id="mensaje"></div>
+
+        <button onclick="irAGaleria()">Ver nuestras fotos 📸</button>
+
+        <!-- MINI JUEGO -->
+        <div class="juego">
+            <h2>🎮 El amor que siento por ti❤️</h2>
+            <p>Puntos: <span id="puntos">0</span></p>
+            <button onclick="iniciarJuego()">Iniciar juego</button>
+
+            <div id="areaJuego"></div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarSorpresa() {
+            document.getElementById("sorpresa").style.display = "block";
+        }
+
+        const mensajes = [
+            "Mamá, eres mi persona favorita 💕",
+            "Gracias por siempre estar para mí 🫶",
+            "Eres la mejor mamá del mundo 🌎",
+            "Te amo con todo mi corazón 💖",
+            "Gracias por tu amor infinito ✨",
+            "Siempre voy a estar para ti 💞"
+        ];
+
+        function mostrarMensaje() {
+            const random = Math.floor(Math.random() * mensajes.length);
+            document.getElementById("mensaje").innerText = mensajes[random];
+        }
+
+        function irAGaleria() {
+            window.location.href = "galeria.html";
+        }
+
+        // MINI JUEGO
+        let puntos = 0;
+        let intervalo;
+
+        function iniciarJuego() {
+            puntos = 0;
+            document.getElementById("puntos").innerText = puntos;
+
+            const area = document.getElementById("areaJuego");
+            area.innerHTML = "";
+
+            clearInterval(intervalo);
+
+            intervalo = setInterval(() => {
+                const corazon = document.createElement("div");
+                corazon.innerText = "❤️";
+                corazon.classList.add("corazon");
+
+                corazon.style.left = Math.random() * 90 + "%";
+                corazon.style.top = Math.random() * 80 + "%";
+
+                corazon.onclick = () => {
+                    puntos++;
+                    document.getElementById("puntos").innerText = puntos;
+                    corazon.remove();
+                };
+
+                area.appendChild(corazon);
+
+                setTimeout(() => {
+                    corazon.remove();
+                }, 1500);
+
+            }, 800);
+        }
+    </script>
+    <audio id="musica" loop>
+    <source src="MAMA.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const audio = document.getElementById("musica");
+
+// se activa con el primer clic
+document.addEventListener("click", () => {
+    audio.play().catch(e => console.log(e));
+}, { once: true });
+</script>s
+</body>
+</html>
